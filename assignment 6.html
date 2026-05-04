@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Student Card Generator with Photo</title>
+    <style>
+        
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #eef2f5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px;
+            margin: 0;
+        }
+
+        h1 { color: #333; margin-bottom: 30px; }
+
+        .main-wrapper {
+            display: flex;
+            gap: 40px;
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            max-width: 900px;
+            width: 100%;
+            flex-wrap: wrap; 
+            justify-content: center;
+        }
+
+        
+        .form-section {
+            flex: 1;
+            min-width: 300px;
+            max-width: 350px;
+        }
+
+        .form-section h2 { color: #2c3e50; margin-top: 0; border-bottom: 2px solid #3498db; padding-bottom: 10px;}
+
+        .input-group { margin-bottom: 15px; }
+
+        label { display: block; margin-bottom: 5px; font-weight: 600; color: #555; font-size: 0.9rem;}
+
+        input[type="text"], input[type="number"], input[type="file"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-sizing: border-box; 
+            transition: border-color 0.3s;
+        }
+
+        input:focus { border-color: #3498db; outline: none; }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: background 0.3s;
+            margin-top: 10px;
+        }
+
+        button:hover { background: #2980b9; }
+
+        
+        .card-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-width: 350px;
+        }
+
+        #id-card {
+            width: 380px;
+            height: 240px;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            border-radius: 15px;
+            position: relative;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            display: none; 
+            border: 2px solid rgba(255,255,255,0.2);
+            overflow: hidden;
+        }
+
+        
+        #id-card::after {
+            content: "STUDENT";
+            position: absolute;
+            font-size: 5rem;
+            font-weight: bold;
+            color: rgba(255,255,255,0.03);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-15deg);
+            white-space: nowrap;
+            pointer-events: none;
+        }
+
+        .card-header {
+            border-bottom: 2px solid rgba(255,255,255,0.3);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-header h3 { margin: 0; font-size: 1.4rem; letter-spacing: 1px;}
+        .inst-name { font-size: 0.8rem; opacity: 0.8;}
+
+        .card-body {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        #cardImage {
+            width: 90px;
+            height: 110px;
+            background-color: #fff;
+            border-radius: 8px;
+            object-fit: cover; 
+            border: 3px solid white;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            display: block;
+        }
+
+        
+        #cardImage[src=""] {
+            display: none;
+        }
+
+        .info p { margin: 8px 0; font-size: 1rem; line-height: 1.2;}
+
+        .label { color: #bdc3c7; font-size: 0.75rem; text-transform: uppercase; font-weight: 600; display: block;}
+        
+        .val { font-weight: bold; font-size: 1.2rem; color: #fff; display: block;}
+
+        .card-footer {
+            position: absolute;
+            bottom: 15px;
+            left: 25px;
+            right: 25px;
+            font-size: 0.8rem;
+            opacity: 0.7;
+            text-align: center;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Student ID Generator</h1>
+
+    <div class="main-wrapper">
+        <div class="form-section">
+            <h2>Details Form</h2>
+            <div class="input-group">
+                <label>Full Name:</label>
+                <input type="text" id="nameInput" placeholder="e.g. Ali Khan">
+            </div>
+            
+            <div class="input-group">
+                <label>Course / Class:</label>
+                <input type="text" id="classInput" placeholder="e.g. Web Development">
+            </div>
+
+            <div class="input-group" style="display: flex; gap: 10px;">
+                <div style="flex: 1;">
+                    <label>Age:</label>
+                    <input type="number" id="ageInput" placeholder="e.g. 20">
+                </div>
+                <div style="flex: 1;">
+                    <label>Roll Number:</label>
+                    <input type="text" id="rollInput" placeholder="e.g. DW-101">
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label>Student Photo:</label>
+                <input type="file" id="imageInput" accept="image/*">
+            </div>
+
+            <button onclick="generateCard()">Generate & View Card</button>
+        </div>
+
+        <div class="card-container">
+            <div id="id-card">
+                <div class="card-header">
+                    <h3>STUDENT ID</h3>
+                    <div class="inst-name">UET Peshawar</div>
+                </div>
+                <div class="card-body">
+                    <img src="" alt="Student" id="cardImage">
+                    
+                    <div class="info">
+                        <p><span class="label">Name</span> <span class="val" id="cardName">---</span></p>
+                        <p><span class="label">Course</span> <span class="val" id="cardClass">---</span></p>
+                        <p style="display: flex; gap: 15px;">
+                            <span><span class="label">Age</span> <span class="val" id="cardAge" style="font-size: 1rem;">--</span></span> 
+                            <span><span class="label">Roll No</span> <span class="val" id="cardRoll" style="font-size: 1rem;">--</span></span>
+                        </p>
+                    </div>
+                </div>
+                <div class="card-footer">Valid Session: 2024-2026</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        
+        function generateCard() {
+            
+            const nameInput = document.getElementById('nameInput');
+            const ageInput = document.getElementById('ageInput');
+            const classInput = document.getElementById('classInput');
+            const rollInput = document.getElementById('rollInput');
+            const imageInput = document.getElementById('imageInput');
+
+            const idCard = document.getElementById('id-card');
+            const cardImage = document.getElementById('cardImage');
+
+            
+            if(nameInput.value === "" || ageInput.value === "" || classInput.value === "" || rollInput.value === "") {
+                alert("Please fill in all text fields.");
+                return;
+            }
+
+            if(!imageInput.files || !imageInput.files[0]) {
+                alert("Please upload a student photo.");
+                return;
+            }
+
+            
+            const file = imageInput.files[0];
+            const reader = new FileReader();
+
+            
+            reader.onload = function(e) {
+                
+                cardImage.src = e.target.result;
+                
+                
+                updateCardText();
+                idCard.style.display = "block";
+                
+                
+                idCard.scrollIntoView({ behavior: 'smooth' });
+            };
+
+            
+            reader.readAsDataURL(file);
+
+
+            
+            function updateCardText() {
+                document.getElementById('cardName').innerText = nameInput.value;
+                document.getElementById('cardAge').innerText = ageInput.value;
+                document.getElementById('cardClass').innerText = classInput.value;
+                document.getElementById('cardRoll').innerText = rollInput.value;
+            }
+        }
+    </script>
+
+</body>
+</html>

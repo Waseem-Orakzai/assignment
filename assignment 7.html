@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Dua App</title>
+    <style>
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #fdfaf1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .dua-card {
+            background-color: #ffffff;
+            width: 90%;
+            max-width: 450px;
+            padding: 40px;
+            border-radius: 25px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            text-align: center;
+            border-top: 8px solid #2d6a4f; 
+        }
+
+        .arabic-text {
+            font-size: 2rem;
+            color: #1b4332;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            direction: rtl; 
+        }
+
+        .translation-text {
+            font-size: 1.1rem;
+            color: #555;
+            font-style: italic;
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+
+        .category {
+            display: inline-block;
+            background: #d8f3dc;
+            color: #2d6a4f;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
+
+        button {
+            background-color: #2d6a4f;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(45, 106, 79, 0.3);
+        }
+
+        button:hover {
+            background-color: #1b4332;
+            transform: translateY(-2px);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="dua-card">
+        <div class="category" id="dua-category">Dua</div>
+        <div class="arabic-text" id="dua-arabic">
+            بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ
+        </div>
+        <div class="translation-text" id="dua-translation">
+            Click the button below to see a Dua.
+        </div>
+        <button onclick="showNewDua()">New Dua</button>
+    </div>
+
+    <script>
+        
+        
+        
+        const duas = [
+            {
+                arabic: "رَبِّ زِدْنِي عِلْمًا",
+                translation: "O my Lord, increase me in knowledge.",
+                category: "Knowledge"
+            },
+            {
+                arabic: "رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الْآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ",
+                translation: "Our Lord, give us in this world that which is good and in the Hereafter that which is good and protect us from the punishment of the Fire.",
+                category: "Success"
+            },
+            {
+                arabic: "اللَّهُمَّ إِنِّي أَسْأَلُكَ عِلْمًا نَافِعًا، وَرِزْقًا طَيِّبًا، وَعَمَلًا مُتَقَبَّلًا",
+                translation: "O Allah, I ask You for knowledge that is of benefit, a good provision, and deeds that will be accepted.",
+                category: "Daily"
+            },
+            {
+                arabic: "سُبْحَانَ اللَّهِ وَبِحَمْدِهِ",
+                translation: "Glory be to Allah and His is the praise.",
+                category: "Praise"
+            },
+            {
+                arabic: "رَبِّ اغْفِرْ لِي وَلِوَالِدَيَّ",
+                translation: "My Lord, forgive me and my parents.",
+                category: "Parents"
+            }
+        ];
+
+        
+        function showNewDua() {
+            
+            const randomIndex = Math.floor(Math.random() * duas.length);
+            const selectedDua = duas[randomIndex];
+
+            
+            document.getElementById('dua-arabic').innerText = selectedDua.arabic;
+            document.getElementById('dua-translation').innerText = selectedDua.translation;
+            document.getElementById('dua-category').innerText = selectedDua.category;
+
+            
+            const card = document.querySelector('.dua-card');
+            card.style.opacity = 0;
+            setTimeout(() => {
+                card.style.opacity = 1;
+                card.style.transition = "opacity 0.5s";
+            }, 50);
+        }
+    </script>
+</body>
+</html>

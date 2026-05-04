@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Counter Application</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            text-align: center;
+            width: 320px;
+        }
+
+        h2 {
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        .counter-display {
+            font-size: 4.5rem;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 12px 20px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        #decrease-btn {
+            background-color: #ff4757;
+            color: white;
+        }
+
+        #reset-btn {
+            background-color: #ced6e0;
+            color: #57606f;
+        }
+
+        #increase-btn {
+            background-color: #2ed573;
+            color: white;
+        }
+
+        button:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Simple Counter</h2>
+        
+        <div class="counter-display" id="counter-value">0</div>
+
+        <div class="buttons">
+            <button id="decrease-btn">Decrease</button>
+            <button id="reset-btn">Reset</button>
+            <button id="increase-btn">Increase</button>
+        </div>
+    </div>
+
+    <script>
+        let count = 0;
+
+        const counterValue = document.getElementById('counter-value');
+        const decreaseBtn = document.getElementById('decrease-btn');
+        const resetBtn = document.getElementById('reset-btn');
+        const increaseBtn = document.getElementById('increase-btn');
+
+        increaseBtn.addEventListener('click', () => {
+            count++;
+            counterValue.innerText = count;
+            updateColor();
+        });
+
+        decreaseBtn.addEventListener('click', () => {
+            count--;
+            counterValue.innerText = count;
+            updateColor();
+        });
+
+        resetBtn.addEventListener('click', () => {
+            count = 0;
+            counterValue.innerText = count;
+            updateColor();
+        });
+
+        function updateColor() {
+            if (count > 0) {
+                counterValue.style.color = "#2ed573";
+            } else if (count < 0) {
+                counterValue.style.color = "#ff4757";
+            } else {
+                counterValue.style.color = "#2c3e50";
+            }
+        }
+    </script>
+</body>
+</html>

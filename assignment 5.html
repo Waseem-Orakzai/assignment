@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Tasbeeh Counter</title>
+    <style>
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #e0e7ff;
+        }
+
+        .container {
+            background-color: #064e3b; 
+            color: white;
+            padding: 40px 20px;
+            border-radius: 30px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+            text-align: center;
+            width: 320px;
+            border: 4px solid #fbbf24; 
+        }
+
+        .image-container img {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            border: 5px solid #fbbf24;
+            object-fit: cover;
+            margin-bottom: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .counter-display {
+            font-size: 5rem;
+            font-weight: 800;
+            margin: 15px 0;
+            background: #065f46;
+            padding: 15px;
+            border-radius: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .status-text {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: #fbbf24;
+            font-weight: bold;
+        }
+
+        .buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        button {
+            padding: 15px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            border: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: all 0.2s ease;
+        }
+
+        #count-btn {
+            background-color: #fbbf24;
+            color: #064e3b;
+            box-shadow: 0 5px 0 #b45309;
+        }
+
+        #count-btn:active {
+            transform: translateY(4px);
+            box-shadow: 0 1px 0 #b45309;
+        }
+
+        #reset-btn {
+            background-color: #ef4444;
+            color: white;
+            font-size: 0.9rem;
+            width: 100px;
+            margin: 0 auto;
+        }
+
+        #reset-btn:hover {
+            background-color: #dc2626;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="image-container">
+            <img id="tasbeeh-img" src="tasbeeh.jfif" alt="Tasbeeh">
+        </div>
+
+        <div class="status-text" id="status">Bismillah</div>
+        <div class="counter-display" id="counter">0</div>
+
+        <div class="buttons">
+            <button id="count-btn">COUNT</button>
+            <button id="reset-btn">RESET</button>
+        </div>
+    </div>
+
+    <audio id="click-sound" src="https://www.soundjay.com/buttons/sounds/button-16.mp3"></audio>
+
+    <script>
+        
+        let count = 0;
+
+        const counterDisplay = document.getElementById('counter');
+        const statusText = document.getElementById('status');
+        const countBtn = document.getElementById('count-btn');
+        const resetBtn = document.getElementById('reset-btn');
+        const clickSound = document.getElementById('click-sound');
+        const tasbeehImg = document.getElementById('tasbeeh-img');
+
+        
+        const images = {
+            start: "https://images.unsplash.com/photo-1594474139479-5034638a2e58?q=80&w=400",
+            step1: "https://images.unsplash.com/photo-1574246604907-db8c7555df9a?q=80&w=400",
+            step2: "https://images.unsplash.com/photo-1564769662533-4f00a87b4056?q=80&w=400",
+            complete: "https://images.unsplash.com/photo-1584551270911-60ad677b3158?q=80&w=400"
+        };
+
+        
+        countBtn.addEventListener('click', () => {
+            count++;
+            counterDisplay.innerText = count;
+            
+            
+            clickSound.currentTime = 0; 
+            clickSound.play();
+
+            
+            if (count <= 33) {
+                statusText.innerText = "SubhanAllah";
+                tasbeehImg.src = images.start;
+            } else if (count > 33 && count <= 66) {
+                statusText.innerText = "Alhamdulillah";
+                tasbeehImg.src = images.step1;
+            } else if (count > 66 && count <= 99) {
+                statusText.innerText = "Allahu Akbar";
+                tasbeehImg.src = images.step2;
+            } else {
+                statusText.innerText = "MashAllah! Done";
+                tasbeehImg.src = images.complete;
+            }
+
+            
+            countBtn.style.transform = "scale(0.98)";
+            setTimeout(() => countBtn.style.transform = "scale(1)", 100);
+        });
+
+        
+        resetBtn.addEventListener('click', () => {
+            if(confirm("Are you sure you want to reset?")) {
+                count = 0;
+                counterDisplay.innerText = count;
+                statusText.innerText = "Bismillah";
+                tasbeehImg.src = images.start;
+            }
+        });
+    </script>
+</body>
+</html>

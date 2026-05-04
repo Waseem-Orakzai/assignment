@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dice Rolling App</title>
+    <style>
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #74ebd5 0%, #9face6 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            text-align: center;
+            width: 300px;
+        }
+
+        h2 {
+            color: #333;
+            margin-bottom: 25px;
+        }
+
+        
+        .dice-box {
+            width: 100px;
+            height: 100px;
+            background-color: #ff4757;
+            color: white;
+            border-radius: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 3rem;
+            font-weight: bold;
+            margin: 0 auto 30px auto;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        
+        .result-text {
+            font-size: 1.2rem;
+            color: #555;
+            margin-bottom: 25px;
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: white;
+            background-color: #2ed573;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(46, 213, 115, 0.4);
+            transition: background-color 0.3s, transform 0.1s;
+        }
+
+        button:hover {
+            background-color: #26af5f;
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Dice Roller</h2>
+        
+        <div class="dice-box" id="dice">⚀</div>
+        
+        <div class="result-text" id="result-text">Click the button to roll the dice!</div>
+        
+        <button id="roll-btn">Roll Dice</button>
+    </div>
+
+    <script>
+        
+        const dice = document.getElementById('dice');
+        const resultText = document.getElementById('result-text');
+        const rollBtn = document.getElementById('roll-btn');
+
+        
+        const diceFaces = ['⚀', '⚁', '⚂', '⚃', '⚄', '⚅'];
+
+        rollBtn.addEventListener('click', () => {
+            
+            dice.style.transform = "rotate(360deg)";
+
+            
+            const randomNumber = Math.floor(Math.random() * 6) + 1;
+
+            
+            setTimeout(() => {
+                dice.innerText = diceFaces[randomNumber - 1];
+                resultText.innerText = `You rolled a ${randomNumber}`;
+                dice.style.transform = "rotate(0deg)";
+            }, 150); 
+        });
+    </script>
+</body>
+</html>

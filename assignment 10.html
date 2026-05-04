@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coin Toss App</title>
+    <style>
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            text-align: center;
+            width: 300px;
+        }
+
+        h2 {
+            color: #333;
+            margin-bottom: 25px;
+        }
+
+        
+        .coin-box {
+            width: 110px;
+            height: 110px;
+            background-color: #ff9ff3;
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin: 0 auto 25px auto;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            border: 4px solid #fff;
+            transition: transform 0.6s ease;
+        }
+
+        
+        .result-text {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: white;
+            background-color: #4cd137;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(76, 209, 55, 0.4);
+            transition: background-color 0.3s, transform 0.1s;
+        }
+
+        button:hover {
+            background-color: #44bd32;
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Coin Toss</h2>
+        
+        <div class="coin-box" id="coin">H</div>
+        
+        <div class="result-text" id="result-text">Click to Toss the Coin!</div>
+        
+        <button id="toss-btn">Toss Coin</button>
+    </div>
+
+    <script>
+        
+        const coin = document.getElementById('coin');
+        const resultText = document.getElementById('result-text');
+        const tossBtn = document.getElementById('toss-btn');
+
+        const options = ['Heads', 'Tails'];
+
+        tossBtn.addEventListener('click', () => {
+            
+            coin.style.transform = "rotateY(720deg)";
+            
+            
+            resultText.innerText = "Tossing...";
+
+            setTimeout(() => {
+                
+                const randomIndex = Math.floor(Math.random() * 2);
+                const result = options[randomIndex];
+
+                
+                if(result === 'Heads') {
+                    coin.innerText = "H";
+                    coin.style.backgroundColor = "#e1b12c";
+                } else {
+                    coin.innerText = "T";
+                    coin.style.backgroundColor = "#487eb0";
+                }
+
+                
+                resultText.innerText = `Result: ${result}`;
+                
+                
+                coin.style.transform = "rotateY(0deg)";
+            }, 600); 
+        });
+    </script>
+</body>
+</html>
